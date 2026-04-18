@@ -19,11 +19,12 @@ function Decoder(payload, payloadB64) {
             var value = parseInt(hexString, 16);
             
             if(lengthInBits && (value & (1 << (lengthInBits - 1)))) {  // Check the MSB
-                value -= (1 << lengthInBits);  // two's complement conversion
+                value = (parseInt(hexString, 16) >> 0) ;  // two's complement conversion
             }
             
             return value;
         }
+
 
         var deviceID = hex.substr(offset, 16); offset += 16;
 		var IMSI = hex.substr(offset, 16); offset += 16;
@@ -166,7 +167,7 @@ function Decoder(payload, payloadB64) {
         var PA4_LEVEL = toInt(hex.substr(offset, 2)); offset += 2;
         var interrupt = toInt(hex.substr(offset, 2)); offset += 2;
         var interrupt_level = toInt(hex.substr(offset, 2)); offset += 2;
-        var Weigt    = toInt(hex.substr(offset, 4), 16) ; offset += 4;
+        var Weigt    = toInt(hex.substr(offset, 8), 16) ; offset += 8;
         var timestamp = toInt(hex.substr(offset, 8)); offset += 8;
         
         
